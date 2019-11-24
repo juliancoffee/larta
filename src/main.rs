@@ -17,6 +17,6 @@ fn main() {
         "on {} with {}\n{}",
         colors::magenta(pwd),
         colors::green(version::python()),
-        colors::magenta(String::from(" ~>")),
+        colors::magenta(String::from(" ~> ")),
     );
 }
