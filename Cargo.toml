@@ -1,0 +1,11 @@
+[package]
+name = "larta"
+version = "0.0.0"
+authors = ["juliancoffee <lightdarkdaughter@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dirs = "2.0"
+
