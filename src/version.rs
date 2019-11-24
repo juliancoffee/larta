@@ -8,5 +8,3 @@ pub fn python() -> String {
 
     String::from_utf8(output.stdout).unwrap().trim().to_string()
 }
-
-
