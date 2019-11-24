@@ -1,9 +1,22 @@
+use std::env;
+
 extern crate dirs;
+mod colors;
+mod version;
 
 fn main() {
-    let home_dir = dirs::home_dir()
-        .expect("failed to get home directory");
-    let home_str = home_dir.to_str()
-        .expect("failed to parse path to string");
-    println!("Home: {}", home_str);
+    let home = dirs::home_dir().expect("failed to get home directory");
+    let home = home.to_str().unwrap().to_string();
+
+    let curdir = env::current_dir().expect("failed to get current directory");
+    let curdir = curdir.to_str().unwrap().to_string();
+
+    let pwd = curdir.replacen(&home, "~", 1);
+
+    println!(
+        "on {} with {}\n{}",
+        colors::magenta(pwd),
+        colors::green(version::python()),
+        colors::magenta(String::from(" ~>")),
+    );
 }
