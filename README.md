@@ -1,6 +1,6 @@
 # Larta
 
-A simple utility to get the prompt.
+A simple utility to get the prompt.<br>
 
 ## Install
 Installing to your `$CARGO_HOME/bin` (in Linux by default is is `$HOME/.cargo/bin`)
@@ -24,4 +24,11 @@ function fish_prompt
     larta
 end
 ```
-If your screen is small, you can use `larta -s`, then path will looks like `~/w/p/src` instead of `~/Workspace/project/src`
+For powershell as it don't support multiline prompt from stdout, you need use levels
+```powershell
+function prompt {
+    "$(larta -l 2)`n$(larta -l 1)"
+}
+```
+If your screen is small, you can use `larta -s`, then path will looks like `~/w/p/src` instead of `~/Workspace/project/src`<br>
+If you want use prompt partly, you can use `larta -l <n>` where n is 1 for lower level (arrow) and 2 for pwd and python version.

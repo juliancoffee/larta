@@ -13,10 +13,21 @@ fn main() {
 
     let py_version = version::python();
 
+    if options.level == 1 {
+        println!(
+            "{}", colors::magenta(String::from(" ~> ")) 
+            )
+    } else if options.level == 2 {
+        println!("on {} with {}",
+                 colors::magenta(pwd),
+                 colors::green(py_version)
+                 );
+    } else {
     println!(
         "on {} with {}\n{}",
         colors::magenta(pwd),
         colors::green(py_version),
         colors::magenta(String::from(" ~> ")),
         );
+    }
 }
