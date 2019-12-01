@@ -24,7 +24,7 @@ function fish_prompt
     larta
 end
 ```
-For powershell as it don't support multiline prompt from stdout, you need use levels
+For powershell as it don't support multiline prompt from stdout, you need to use levels
 ```powershell
 function prompt {
     "$(larta -l 2)`n$(larta -l 1)"
