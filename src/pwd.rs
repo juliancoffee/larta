@@ -43,19 +43,30 @@ fn short_pwd(current_dir: PathBuf, sep: String) -> String {
         .to_string();
 
     let short_path: String = path_str.split(sep).enumerate()
-        .map(|(i, s)| match (i, s) {
-            (0, s) => format!("{}", s),
-            (_, s) => if s == head {
+        .map(|(i, s)| {
+            if i == 0 {
+                format!("{}", s)
+            } else if s == head {
                 format!("{}", head)
-            } else { 
-                format!("{}", s.chars().nth(0)
-                    .expect("failed to get first character of str"))
+            } else {
+                minimize(s.to_string())
             }
         })
         .collect::<Vec<String>>()
         .join(&separator);
-
     short_path
+}
+
+fn minimize(dir: String) -> String {
+    let first = dir.chars().nth(0)
+        .expect("failed to get first character of str");
+
+    if first == '.' {
+        format!("{}{}", first, dir.chars().nth(1).
+                expect("failed to get first character of str"))
+    } else {
+        format!("{}", first)
+    }
 }
 
 fn get_sep() -> String {
