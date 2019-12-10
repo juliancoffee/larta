@@ -1,11 +1,11 @@
-use std::path::{self, PathBuf};
 use std::env;
+use std::path::{self, PathBuf};
 
 extern crate dirs;
 
 pub fn current_path(need_short: bool) -> String {
     let cur_dir = env::current_dir().expect("failed to get current directory");
-    
+
     let sep = get_sep();
     if need_short {
         short_pwd(cur_dir, sep)
@@ -14,10 +14,11 @@ pub fn current_path(need_short: bool) -> String {
     }
 }
 
-
 fn pwd(current_dir: PathBuf) -> String {
-    let path = current_dir.to_str()
-        .expect("failed to parse current path").to_string();
+    let path = current_dir
+        .to_str()
+        .expect("failed to parse current path")
+        .to_string();
     let home = home();
     let home = home.to_str().expect("failed to parse home directory");
     path.replacen(&home, "~", 1)
@@ -28,7 +29,7 @@ fn short_pwd(current_dir: PathBuf, sep: String) -> String {
     let separator = sep;
 
     if current_dir == home_path {
-        return String::from("~")
+        return String::from("~");
     }
     if current_dir == PathBuf::from(&separator) {
         return separator;
@@ -39,10 +40,15 @@ fn short_pwd(current_dir: PathBuf, sep: String) -> String {
 
     let path = current_dir.to_str().expect("failed to get current path");
     let path_str = path.replacen(&home, "~", 1);
-    let head = path_str.split(sep).last().expect("failed to get head of path")
+    let head = path_str
+        .split(sep)
+        .last()
+        .expect("failed to get head of path")
         .to_string();
 
-    let short_path: String = path_str.split(sep).enumerate()
+    let short_path: String = path_str
+        .split(sep)
+        .enumerate()
         .map(|(i, s)| {
             if i == 0 {
                 format!("{}", s)
@@ -58,12 +64,19 @@ fn short_pwd(current_dir: PathBuf, sep: String) -> String {
 }
 
 fn minimize(dir: String) -> String {
-    let first = dir.chars().nth(0)
+    let first = dir
+        .chars()
+        .nth(0)
         .expect("failed to get first character of str");
 
     if first == '.' {
-        format!("{}{}", first, dir.chars().nth(1).
-                expect("failed to get first character of str"))
+        format!(
+            "{}{}",
+            first,
+            dir.chars()
+                .nth(1)
+                .expect("failed to get first character of str")
+        )
     } else {
         format!("{}", first)
     }
@@ -91,22 +104,12 @@ mod test_short {
 
         #[test]
         fn root() {
-            assert_eq!(
-                short_pwd(
-                    PathBuf::from("/"),
-                    "/".to_string(),
-                    )
-                , "/");
+            assert_eq!(short_pwd(PathBuf::from("/"), "/".to_string(),), "/");
         }
 
         #[test]
         fn one_dir() {
-            assert_eq!(
-                short_pwd(
-                    PathBuf::from("/usr"),
-                    "/".to_string(),
-                    )
-                , "/usr");
+            assert_eq!(short_pwd(PathBuf::from("/usr"), "/".to_string(),), "/usr");
         }
     }
 
@@ -115,22 +118,15 @@ mod test_short {
 
         #[test]
         fn windows_drive() {
-            assert_eq!(
-                short_pwd(
-                    PathBuf::from(r"C:\"),
-                    r"\".to_string(),
-                    )
-                , r"C:\");
+            assert_eq!(short_pwd(PathBuf::from(r"C:\"), r"\".to_string(),), r"C:\");
         }
 
         #[test]
         fn one_dir() {
             assert_eq!(
-                short_pwd(
-                    PathBuf::from(r"C:\Users"),
-                    r"\".to_string(),
-                    )
-                , r"C:\Users");
+                short_pwd(PathBuf::from(r"C:\Users"), r"\".to_string(),),
+                r"C:\Users"
+            );
         }
     }
 }
@@ -151,9 +147,6 @@ mod test_long {
 
     #[test]
     fn windows_drive() {
-        assert_eq!(
-            pwd(
-                PathBuf::from(r"C:\"))
-            , r"C:\");
+        assert_eq!(pwd(PathBuf::from(r"C:\")), r"C:\");
     }
 }

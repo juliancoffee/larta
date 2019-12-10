@@ -14,7 +14,7 @@ fn parse_args(args: env::Args) -> Options {
     let mut is_short = false;
     let mut level_placeholder = "";
     let argv: Vec<String> = args.collect();
-    let args = argv.iter(); 
+    let args = argv.iter();
 
     for (i, arg) in args.enumerate() {
         match arg.as_str() {
@@ -22,9 +22,9 @@ fn parse_args(args: env::Args) -> Options {
                 is_short = true;
             }
             "-l" | "--level" => {
-                level_placeholder = match argv.get(i+1) {
+                level_placeholder = match argv.get(i + 1) {
                     Some(n) => n,
-                    None => ""
+                    None => "",
                 };
             }
             _ => (),
@@ -41,6 +41,6 @@ fn parse_args(args: env::Args) -> Options {
     };
     Options {
         is_short: is_short,
-        level: level
+        level: level,
     }
 }
