@@ -9,3 +9,5 @@ edition = "2018"
 [dependencies]
 dirs = "2.0"
 
+[profile.release]
+lto = true
