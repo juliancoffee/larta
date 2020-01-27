@@ -94,6 +94,10 @@ fn home() -> PathBuf {
 mod test_short {
     use super::*;
 
+    fn short_from_string(path: &str, sep: &str) -> String {
+        short_pwd(PathBuf::from(path), sep.to_string())
+    }
+
     #[test]
     fn test_home() {
         assert_eq!(short_pwd(home(), get_sep()), String::from("~"));
@@ -110,6 +114,12 @@ mod test_short {
         #[test]
         fn one_dir() {
             assert_eq!(short_pwd(PathBuf::from("/usr"), "/".to_string(),), "/usr");
+        }
+
+        #[test]
+        fn first_is_last() {
+            println!("{}", short_from_string("/var/run", "/"));
+            assert_eq!(short_from_string("/var/run", "/"), "/v/run")
         }
     }
 
